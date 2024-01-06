@@ -11,29 +11,44 @@ let isRunning = false;
 let countDown;
 
 function tick() {
-  let min = Math.floor(secondsRemaining / 60);
-  let sec = secondsRemaining - min * 60;
+  countDown = setInterval(update, 1000);
+  isRunning = true;
+  function update() {
+    if (isRunning == false) {
+      clearInterval(countDown);
+    } else {
+      let min = Math.floor(secondsRemaining / 60);
+      let sec = secondsRemaining - min * 60;
 
-  if (min < 10) {
-    min = "0" + min;
+      if (min < 10) {
+        min = "0" + min;
+      }
+      if (sec < 10) {
+        sec = "0" + sec;
+      }
+      timeDisplayMinute.innerHTML = min;
+      timeDisplaySecond.innerHTML = sec;
+      if (secondsRemaining === 0) {
+        clearInterval(countDown);
+      }
+      secondsRemaining--;
+    }
   }
-  if (sec < 10) {
-    sec = "0" + sec;
-  }
-  timeDisplayMinute.innerHTML = min;
-  timeDisplaySecond.innerHTML = sec;
-  if (secondsRemaining === 0) {
-    clearInterval(countDown);
-  }
-
-  secondsRemaining--;
 }
 
 function startTimer() {
-  countDown = setInterval(tick, 1000);
-
   let minutes = document.getElementById("minutes").value;
   secondsRemaining = minutes * 60;
+
+  tick();
+}
+
+function stopTimer() {
+  clearInterval(countDown);
+  isRunning = false;
 }
 
 startBtn.addEventListener("click", startTimer);
+pauseBtn.addEventListener("click", function () {
+  stopTimer();
+});
