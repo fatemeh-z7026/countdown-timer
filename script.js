@@ -52,3 +52,7 @@ startBtn.addEventListener("click", startTimer);
 pauseBtn.addEventListener("click", function () {
   stopTimer();
 });
+
+resumeBtn.addEventListener("click", function () {
+  tick();
+});
