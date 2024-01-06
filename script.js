@@ -51,8 +51,17 @@ function stopTimer() {
 startBtn.addEventListener("click", startTimer);
 pauseBtn.addEventListener("click", function () {
   stopTimer();
+  console.log("paused");
 });
 
 resumeBtn.addEventListener("click", function () {
   tick();
+  console.log("resumed");
+});
+
+restBtn.addEventListener("click", function () {
+  clearInterval(countDown);
+  timeDisplayMinute.innerHTML = "00";
+  timeDisplaySecond.innerHTML = "00";
+  console.log("rested");
 });
